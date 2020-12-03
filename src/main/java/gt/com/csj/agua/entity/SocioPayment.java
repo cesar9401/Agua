@@ -159,7 +159,7 @@ public class SocioPayment implements Serializable {
 
     @Override
     public String toString() {
-        return "gt.com.csj.agua.entity.SocioPayment[ socioPaymentId=" + socioPaymentId + " ]";
+        return "gt.com.csj.agua.test.SocioPayment[ socioPaymentId=" + socioPaymentId + " ]";
     }
     
 }

@@ -123,7 +123,7 @@ public class SocioEvent implements Serializable {
 
     @Override
     public String toString() {
-        return "gt.com.csj.agua.entity.SocioEvent[ socioEventId=" + socioEventId + " ]";
+        return "gt.com.csj.agua.test.SocioEvent[ socioEventId=" + socioEventId + " ]";
     }
     
 }

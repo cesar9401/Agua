@@ -16,9 +16,8 @@ import javax.persistence.criteria.Root;
 import gt.com.csj.agua.entity.Socio;
 import gt.com.csj.agua.entity.SocioEvent;
 import java.util.ArrayList;
-import java.util.Collection;
-import gt.com.csj.agua.entity.SocioPayment;
 import java.util.List;
+import gt.com.csj.agua.entity.SocioPayment;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -38,11 +37,11 @@ public class AdministratorJpaController implements Serializable {
     }
 
     public void create(Administrator administrator) {
-        if (administrator.getSocioEventCollection() == null) {
-            administrator.setSocioEventCollection(new ArrayList<SocioEvent>());
+        if (administrator.getSocioEventList() == null) {
+            administrator.setSocioEventList(new ArrayList<SocioEvent>());
         }
-        if (administrator.getSocioPaymentCollection() == null) {
-            administrator.setSocioPaymentCollection(new ArrayList<SocioPayment>());
+        if (administrator.getSocioPaymentList() == null) {
+            administrator.setSocioPaymentList(new ArrayList<SocioPayment>());
         }
         EntityManager em = null;
         try {
@@ -53,39 +52,39 @@ public class AdministratorJpaController implements Serializable {
                 socioId = em.getReference(socioId.getClass(), socioId.getSocioId());
                 administrator.setSocioId(socioId);
             }
-            Collection<SocioEvent> attachedSocioEventCollection = new ArrayList<SocioEvent>();
-            for (SocioEvent socioEventCollectionSocioEventToAttach : administrator.getSocioEventCollection()) {
-                socioEventCollectionSocioEventToAttach = em.getReference(socioEventCollectionSocioEventToAttach.getClass(), socioEventCollectionSocioEventToAttach.getSocioEventId());
-                attachedSocioEventCollection.add(socioEventCollectionSocioEventToAttach);
+            List<SocioEvent> attachedSocioEventList = new ArrayList<SocioEvent>();
+            for (SocioEvent socioEventListSocioEventToAttach : administrator.getSocioEventList()) {
+                socioEventListSocioEventToAttach = em.getReference(socioEventListSocioEventToAttach.getClass(), socioEventListSocioEventToAttach.getSocioEventId());
+                attachedSocioEventList.add(socioEventListSocioEventToAttach);
             }
-            administrator.setSocioEventCollection(attachedSocioEventCollection);
-            Collection<SocioPayment> attachedSocioPaymentCollection = new ArrayList<SocioPayment>();
-            for (SocioPayment socioPaymentCollectionSocioPaymentToAttach : administrator.getSocioPaymentCollection()) {
-                socioPaymentCollectionSocioPaymentToAttach = em.getReference(socioPaymentCollectionSocioPaymentToAttach.getClass(), socioPaymentCollectionSocioPaymentToAttach.getSocioPaymentId());
-                attachedSocioPaymentCollection.add(socioPaymentCollectionSocioPaymentToAttach);
+            administrator.setSocioEventList(attachedSocioEventList);
+            List<SocioPayment> attachedSocioPaymentList = new ArrayList<SocioPayment>();
+            for (SocioPayment socioPaymentListSocioPaymentToAttach : administrator.getSocioPaymentList()) {
+                socioPaymentListSocioPaymentToAttach = em.getReference(socioPaymentListSocioPaymentToAttach.getClass(), socioPaymentListSocioPaymentToAttach.getSocioPaymentId());
+                attachedSocioPaymentList.add(socioPaymentListSocioPaymentToAttach);
             }
-            administrator.setSocioPaymentCollection(attachedSocioPaymentCollection);
+            administrator.setSocioPaymentList(attachedSocioPaymentList);
             em.persist(administrator);
             if (socioId != null) {
-                socioId.getAdministratorCollection().add(administrator);
+                socioId.getAdministratorList().add(administrator);
                 socioId = em.merge(socioId);
             }
-            for (SocioEvent socioEventCollectionSocioEvent : administrator.getSocioEventCollection()) {
-                Administrator oldAdministratorIdOfSocioEventCollectionSocioEvent = socioEventCollectionSocioEvent.getAdministratorId();
-                socioEventCollectionSocioEvent.setAdministratorId(administrator);
-                socioEventCollectionSocioEvent = em.merge(socioEventCollectionSocioEvent);
-                if (oldAdministratorIdOfSocioEventCollectionSocioEvent != null) {
-                    oldAdministratorIdOfSocioEventCollectionSocioEvent.getSocioEventCollection().remove(socioEventCollectionSocioEvent);
-                    oldAdministratorIdOfSocioEventCollectionSocioEvent = em.merge(oldAdministratorIdOfSocioEventCollectionSocioEvent);
+            for (SocioEvent socioEventListSocioEvent : administrator.getSocioEventList()) {
+                Administrator oldAdministratorIdOfSocioEventListSocioEvent = socioEventListSocioEvent.getAdministratorId();
+                socioEventListSocioEvent.setAdministratorId(administrator);
+                socioEventListSocioEvent = em.merge(socioEventListSocioEvent);
+                if (oldAdministratorIdOfSocioEventListSocioEvent != null) {
+                    oldAdministratorIdOfSocioEventListSocioEvent.getSocioEventList().remove(socioEventListSocioEvent);
+                    oldAdministratorIdOfSocioEventListSocioEvent = em.merge(oldAdministratorIdOfSocioEventListSocioEvent);
                 }
             }
-            for (SocioPayment socioPaymentCollectionSocioPayment : administrator.getSocioPaymentCollection()) {
-                Administrator oldAdministratorIdOfSocioPaymentCollectionSocioPayment = socioPaymentCollectionSocioPayment.getAdministratorId();
-                socioPaymentCollectionSocioPayment.setAdministratorId(administrator);
-                socioPaymentCollectionSocioPayment = em.merge(socioPaymentCollectionSocioPayment);
-                if (oldAdministratorIdOfSocioPaymentCollectionSocioPayment != null) {
-                    oldAdministratorIdOfSocioPaymentCollectionSocioPayment.getSocioPaymentCollection().remove(socioPaymentCollectionSocioPayment);
-                    oldAdministratorIdOfSocioPaymentCollectionSocioPayment = em.merge(oldAdministratorIdOfSocioPaymentCollectionSocioPayment);
+            for (SocioPayment socioPaymentListSocioPayment : administrator.getSocioPaymentList()) {
+                Administrator oldAdministratorIdOfSocioPaymentListSocioPayment = socioPaymentListSocioPayment.getAdministratorId();
+                socioPaymentListSocioPayment.setAdministratorId(administrator);
+                socioPaymentListSocioPayment = em.merge(socioPaymentListSocioPayment);
+                if (oldAdministratorIdOfSocioPaymentListSocioPayment != null) {
+                    oldAdministratorIdOfSocioPaymentListSocioPayment.getSocioPaymentList().remove(socioPaymentListSocioPayment);
+                    oldAdministratorIdOfSocioPaymentListSocioPayment = em.merge(oldAdministratorIdOfSocioPaymentListSocioPayment);
                 }
             }
             em.getTransaction().commit();
@@ -104,25 +103,25 @@ public class AdministratorJpaController implements Serializable {
             Administrator persistentAdministrator = em.find(Administrator.class, administrator.getAdministratorId());
             Socio socioIdOld = persistentAdministrator.getSocioId();
             Socio socioIdNew = administrator.getSocioId();
-            Collection<SocioEvent> socioEventCollectionOld = persistentAdministrator.getSocioEventCollection();
-            Collection<SocioEvent> socioEventCollectionNew = administrator.getSocioEventCollection();
-            Collection<SocioPayment> socioPaymentCollectionOld = persistentAdministrator.getSocioPaymentCollection();
-            Collection<SocioPayment> socioPaymentCollectionNew = administrator.getSocioPaymentCollection();
+            List<SocioEvent> socioEventListOld = persistentAdministrator.getSocioEventList();
+            List<SocioEvent> socioEventListNew = administrator.getSocioEventList();
+            List<SocioPayment> socioPaymentListOld = persistentAdministrator.getSocioPaymentList();
+            List<SocioPayment> socioPaymentListNew = administrator.getSocioPaymentList();
             List<String> illegalOrphanMessages = null;
-            for (SocioEvent socioEventCollectionOldSocioEvent : socioEventCollectionOld) {
-                if (!socioEventCollectionNew.contains(socioEventCollectionOldSocioEvent)) {
+            for (SocioEvent socioEventListOldSocioEvent : socioEventListOld) {
+                if (!socioEventListNew.contains(socioEventListOldSocioEvent)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain SocioEvent " + socioEventCollectionOldSocioEvent + " since its administratorId field is not nullable.");
+                    illegalOrphanMessages.add("You must retain SocioEvent " + socioEventListOldSocioEvent + " since its administratorId field is not nullable.");
                 }
             }
-            for (SocioPayment socioPaymentCollectionOldSocioPayment : socioPaymentCollectionOld) {
-                if (!socioPaymentCollectionNew.contains(socioPaymentCollectionOldSocioPayment)) {
+            for (SocioPayment socioPaymentListOldSocioPayment : socioPaymentListOld) {
+                if (!socioPaymentListNew.contains(socioPaymentListOldSocioPayment)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain SocioPayment " + socioPaymentCollectionOldSocioPayment + " since its administratorId field is not nullable.");
+                    illegalOrphanMessages.add("You must retain SocioPayment " + socioPaymentListOldSocioPayment + " since its administratorId field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -132,48 +131,48 @@ public class AdministratorJpaController implements Serializable {
                 socioIdNew = em.getReference(socioIdNew.getClass(), socioIdNew.getSocioId());
                 administrator.setSocioId(socioIdNew);
             }
-            Collection<SocioEvent> attachedSocioEventCollectionNew = new ArrayList<SocioEvent>();
-            for (SocioEvent socioEventCollectionNewSocioEventToAttach : socioEventCollectionNew) {
-                socioEventCollectionNewSocioEventToAttach = em.getReference(socioEventCollectionNewSocioEventToAttach.getClass(), socioEventCollectionNewSocioEventToAttach.getSocioEventId());
-                attachedSocioEventCollectionNew.add(socioEventCollectionNewSocioEventToAttach);
+            List<SocioEvent> attachedSocioEventListNew = new ArrayList<SocioEvent>();
+            for (SocioEvent socioEventListNewSocioEventToAttach : socioEventListNew) {
+                socioEventListNewSocioEventToAttach = em.getReference(socioEventListNewSocioEventToAttach.getClass(), socioEventListNewSocioEventToAttach.getSocioEventId());
+                attachedSocioEventListNew.add(socioEventListNewSocioEventToAttach);
             }
-            socioEventCollectionNew = attachedSocioEventCollectionNew;
-            administrator.setSocioEventCollection(socioEventCollectionNew);
-            Collection<SocioPayment> attachedSocioPaymentCollectionNew = new ArrayList<SocioPayment>();
-            for (SocioPayment socioPaymentCollectionNewSocioPaymentToAttach : socioPaymentCollectionNew) {
-                socioPaymentCollectionNewSocioPaymentToAttach = em.getReference(socioPaymentCollectionNewSocioPaymentToAttach.getClass(), socioPaymentCollectionNewSocioPaymentToAttach.getSocioPaymentId());
-                attachedSocioPaymentCollectionNew.add(socioPaymentCollectionNewSocioPaymentToAttach);
+            socioEventListNew = attachedSocioEventListNew;
+            administrator.setSocioEventList(socioEventListNew);
+            List<SocioPayment> attachedSocioPaymentListNew = new ArrayList<SocioPayment>();
+            for (SocioPayment socioPaymentListNewSocioPaymentToAttach : socioPaymentListNew) {
+                socioPaymentListNewSocioPaymentToAttach = em.getReference(socioPaymentListNewSocioPaymentToAttach.getClass(), socioPaymentListNewSocioPaymentToAttach.getSocioPaymentId());
+                attachedSocioPaymentListNew.add(socioPaymentListNewSocioPaymentToAttach);
             }
-            socioPaymentCollectionNew = attachedSocioPaymentCollectionNew;
-            administrator.setSocioPaymentCollection(socioPaymentCollectionNew);
+            socioPaymentListNew = attachedSocioPaymentListNew;
+            administrator.setSocioPaymentList(socioPaymentListNew);
             administrator = em.merge(administrator);
             if (socioIdOld != null && !socioIdOld.equals(socioIdNew)) {
-                socioIdOld.getAdministratorCollection().remove(administrator);
+                socioIdOld.getAdministratorList().remove(administrator);
                 socioIdOld = em.merge(socioIdOld);
             }
             if (socioIdNew != null && !socioIdNew.equals(socioIdOld)) {
-                socioIdNew.getAdministratorCollection().add(administrator);
+                socioIdNew.getAdministratorList().add(administrator);
                 socioIdNew = em.merge(socioIdNew);
             }
-            for (SocioEvent socioEventCollectionNewSocioEvent : socioEventCollectionNew) {
-                if (!socioEventCollectionOld.contains(socioEventCollectionNewSocioEvent)) {
-                    Administrator oldAdministratorIdOfSocioEventCollectionNewSocioEvent = socioEventCollectionNewSocioEvent.getAdministratorId();
-                    socioEventCollectionNewSocioEvent.setAdministratorId(administrator);
-                    socioEventCollectionNewSocioEvent = em.merge(socioEventCollectionNewSocioEvent);
-                    if (oldAdministratorIdOfSocioEventCollectionNewSocioEvent != null && !oldAdministratorIdOfSocioEventCollectionNewSocioEvent.equals(administrator)) {
-                        oldAdministratorIdOfSocioEventCollectionNewSocioEvent.getSocioEventCollection().remove(socioEventCollectionNewSocioEvent);
-                        oldAdministratorIdOfSocioEventCollectionNewSocioEvent = em.merge(oldAdministratorIdOfSocioEventCollectionNewSocioEvent);
+            for (SocioEvent socioEventListNewSocioEvent : socioEventListNew) {
+                if (!socioEventListOld.contains(socioEventListNewSocioEvent)) {
+                    Administrator oldAdministratorIdOfSocioEventListNewSocioEvent = socioEventListNewSocioEvent.getAdministratorId();
+                    socioEventListNewSocioEvent.setAdministratorId(administrator);
+                    socioEventListNewSocioEvent = em.merge(socioEventListNewSocioEvent);
+                    if (oldAdministratorIdOfSocioEventListNewSocioEvent != null && !oldAdministratorIdOfSocioEventListNewSocioEvent.equals(administrator)) {
+                        oldAdministratorIdOfSocioEventListNewSocioEvent.getSocioEventList().remove(socioEventListNewSocioEvent);
+                        oldAdministratorIdOfSocioEventListNewSocioEvent = em.merge(oldAdministratorIdOfSocioEventListNewSocioEvent);
                     }
                 }
             }
-            for (SocioPayment socioPaymentCollectionNewSocioPayment : socioPaymentCollectionNew) {
-                if (!socioPaymentCollectionOld.contains(socioPaymentCollectionNewSocioPayment)) {
-                    Administrator oldAdministratorIdOfSocioPaymentCollectionNewSocioPayment = socioPaymentCollectionNewSocioPayment.getAdministratorId();
-                    socioPaymentCollectionNewSocioPayment.setAdministratorId(administrator);
-                    socioPaymentCollectionNewSocioPayment = em.merge(socioPaymentCollectionNewSocioPayment);
-                    if (oldAdministratorIdOfSocioPaymentCollectionNewSocioPayment != null && !oldAdministratorIdOfSocioPaymentCollectionNewSocioPayment.equals(administrator)) {
-                        oldAdministratorIdOfSocioPaymentCollectionNewSocioPayment.getSocioPaymentCollection().remove(socioPaymentCollectionNewSocioPayment);
-                        oldAdministratorIdOfSocioPaymentCollectionNewSocioPayment = em.merge(oldAdministratorIdOfSocioPaymentCollectionNewSocioPayment);
+            for (SocioPayment socioPaymentListNewSocioPayment : socioPaymentListNew) {
+                if (!socioPaymentListOld.contains(socioPaymentListNewSocioPayment)) {
+                    Administrator oldAdministratorIdOfSocioPaymentListNewSocioPayment = socioPaymentListNewSocioPayment.getAdministratorId();
+                    socioPaymentListNewSocioPayment.setAdministratorId(administrator);
+                    socioPaymentListNewSocioPayment = em.merge(socioPaymentListNewSocioPayment);
+                    if (oldAdministratorIdOfSocioPaymentListNewSocioPayment != null && !oldAdministratorIdOfSocioPaymentListNewSocioPayment.equals(administrator)) {
+                        oldAdministratorIdOfSocioPaymentListNewSocioPayment.getSocioPaymentList().remove(socioPaymentListNewSocioPayment);
+                        oldAdministratorIdOfSocioPaymentListNewSocioPayment = em.merge(oldAdministratorIdOfSocioPaymentListNewSocioPayment);
                     }
                 }
             }
@@ -207,26 +206,26 @@ public class AdministratorJpaController implements Serializable {
                 throw new NonexistentEntityException("The administrator with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<SocioEvent> socioEventCollectionOrphanCheck = administrator.getSocioEventCollection();
-            for (SocioEvent socioEventCollectionOrphanCheckSocioEvent : socioEventCollectionOrphanCheck) {
+            List<SocioEvent> socioEventListOrphanCheck = administrator.getSocioEventList();
+            for (SocioEvent socioEventListOrphanCheckSocioEvent : socioEventListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Administrator (" + administrator + ") cannot be destroyed since the SocioEvent " + socioEventCollectionOrphanCheckSocioEvent + " in its socioEventCollection field has a non-nullable administratorId field.");
+                illegalOrphanMessages.add("This Administrator (" + administrator + ") cannot be destroyed since the SocioEvent " + socioEventListOrphanCheckSocioEvent + " in its socioEventList field has a non-nullable administratorId field.");
             }
-            Collection<SocioPayment> socioPaymentCollectionOrphanCheck = administrator.getSocioPaymentCollection();
-            for (SocioPayment socioPaymentCollectionOrphanCheckSocioPayment : socioPaymentCollectionOrphanCheck) {
+            List<SocioPayment> socioPaymentListOrphanCheck = administrator.getSocioPaymentList();
+            for (SocioPayment socioPaymentListOrphanCheckSocioPayment : socioPaymentListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Administrator (" + administrator + ") cannot be destroyed since the SocioPayment " + socioPaymentCollectionOrphanCheckSocioPayment + " in its socioPaymentCollection field has a non-nullable administratorId field.");
+                illegalOrphanMessages.add("This Administrator (" + administrator + ") cannot be destroyed since the SocioPayment " + socioPaymentListOrphanCheckSocioPayment + " in its socioPaymentList field has a non-nullable administratorId field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
             Socio socioId = administrator.getSocioId();
             if (socioId != null) {
-                socioId.getAdministratorCollection().remove(administrator);
+                socioId.getAdministratorList().remove(administrator);
                 socioId = em.merge(socioId);
             }
             em.remove(administrator);

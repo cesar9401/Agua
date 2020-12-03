@@ -7,8 +7,8 @@ package gt.com.csj.agua.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -76,7 +76,7 @@ public class Event implements Serializable {
     @Column(name = "status")
     private Short status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventId")
-    private Collection<SocioEvent> socioEventCollection;
+    private List<SocioEvent> socioEventList;
 
     public Event() {
     }
@@ -150,12 +150,12 @@ public class Event implements Serializable {
     }
 
     @XmlTransient
-    public Collection<SocioEvent> getSocioEventCollection() {
-        return socioEventCollection;
+    public List<SocioEvent> getSocioEventList() {
+        return socioEventList;
     }
 
-    public void setSocioEventCollection(Collection<SocioEvent> socioEventCollection) {
-        this.socioEventCollection = socioEventCollection;
+    public void setSocioEventList(List<SocioEvent> socioEventList) {
+        this.socioEventList = socioEventList;
     }
 
     @Override
@@ -180,7 +180,7 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        return "gt.com.csj.agua.entity.Event[ eventId=" + eventId + " ]";
+        return "gt.com.csj.agua.test.Event[ eventId=" + eventId + " ]";
     }
     
 }

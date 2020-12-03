@@ -56,15 +56,15 @@ public class SocioEventJpaController implements Serializable {
             }
             em.persist(socioEvent);
             if (administratorId != null) {
-                administratorId.getSocioEventCollection().add(socioEvent);
+                administratorId.getSocioEventList().add(socioEvent);
                 administratorId = em.merge(administratorId);
             }
             if (eventId != null) {
-                eventId.getSocioEventCollection().add(socioEvent);
+                eventId.getSocioEventList().add(socioEvent);
                 eventId = em.merge(eventId);
             }
             if (socioId != null) {
-                socioId.getSocioEventCollection().add(socioEvent);
+                socioId.getSocioEventList().add(socioEvent);
                 socioId = em.merge(socioId);
             }
             em.getTransaction().commit();
@@ -101,27 +101,27 @@ public class SocioEventJpaController implements Serializable {
             }
             socioEvent = em.merge(socioEvent);
             if (administratorIdOld != null && !administratorIdOld.equals(administratorIdNew)) {
-                administratorIdOld.getSocioEventCollection().remove(socioEvent);
+                administratorIdOld.getSocioEventList().remove(socioEvent);
                 administratorIdOld = em.merge(administratorIdOld);
             }
             if (administratorIdNew != null && !administratorIdNew.equals(administratorIdOld)) {
-                administratorIdNew.getSocioEventCollection().add(socioEvent);
+                administratorIdNew.getSocioEventList().add(socioEvent);
                 administratorIdNew = em.merge(administratorIdNew);
             }
             if (eventIdOld != null && !eventIdOld.equals(eventIdNew)) {
-                eventIdOld.getSocioEventCollection().remove(socioEvent);
+                eventIdOld.getSocioEventList().remove(socioEvent);
                 eventIdOld = em.merge(eventIdOld);
             }
             if (eventIdNew != null && !eventIdNew.equals(eventIdOld)) {
-                eventIdNew.getSocioEventCollection().add(socioEvent);
+                eventIdNew.getSocioEventList().add(socioEvent);
                 eventIdNew = em.merge(eventIdNew);
             }
             if (socioIdOld != null && !socioIdOld.equals(socioIdNew)) {
-                socioIdOld.getSocioEventCollection().remove(socioEvent);
+                socioIdOld.getSocioEventList().remove(socioEvent);
                 socioIdOld = em.merge(socioIdOld);
             }
             if (socioIdNew != null && !socioIdNew.equals(socioIdOld)) {
-                socioIdNew.getSocioEventCollection().add(socioEvent);
+                socioIdNew.getSocioEventList().add(socioEvent);
                 socioIdNew = em.merge(socioIdNew);
             }
             em.getTransaction().commit();
@@ -155,17 +155,17 @@ public class SocioEventJpaController implements Serializable {
             }
             Administrator administratorId = socioEvent.getAdministratorId();
             if (administratorId != null) {
-                administratorId.getSocioEventCollection().remove(socioEvent);
+                administratorId.getSocioEventList().remove(socioEvent);
                 administratorId = em.merge(administratorId);
             }
             Event eventId = socioEvent.getEventId();
             if (eventId != null) {
-                eventId.getSocioEventCollection().remove(socioEvent);
+                eventId.getSocioEventList().remove(socioEvent);
                 eventId = em.merge(eventId);
             }
             Socio socioId = socioEvent.getSocioId();
             if (socioId != null) {
-                socioId.getSocioEventCollection().remove(socioEvent);
+                socioId.getSocioEventList().remove(socioEvent);
                 socioId = em.merge(socioId);
             }
             em.remove(socioEvent);

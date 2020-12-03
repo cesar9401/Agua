@@ -6,7 +6,7 @@
 package gt.com.csj.agua.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -53,9 +53,9 @@ public class Administrator implements Serializable {
     @ManyToOne(optional = false)
     private Socio socioId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "administratorId")
-    private Collection<SocioEvent> socioEventCollection;
+    private List<SocioEvent> socioEventList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "administratorId")
-    private Collection<SocioPayment> socioPaymentCollection;
+    private List<SocioPayment> socioPaymentList;
 
     public Administrator() {
     }
@@ -94,21 +94,21 @@ public class Administrator implements Serializable {
     }
 
     @XmlTransient
-    public Collection<SocioEvent> getSocioEventCollection() {
-        return socioEventCollection;
+    public List<SocioEvent> getSocioEventList() {
+        return socioEventList;
     }
 
-    public void setSocioEventCollection(Collection<SocioEvent> socioEventCollection) {
-        this.socioEventCollection = socioEventCollection;
+    public void setSocioEventList(List<SocioEvent> socioEventList) {
+        this.socioEventList = socioEventList;
     }
 
     @XmlTransient
-    public Collection<SocioPayment> getSocioPaymentCollection() {
-        return socioPaymentCollection;
+    public List<SocioPayment> getSocioPaymentList() {
+        return socioPaymentList;
     }
 
-    public void setSocioPaymentCollection(Collection<SocioPayment> socioPaymentCollection) {
-        this.socioPaymentCollection = socioPaymentCollection;
+    public void setSocioPaymentList(List<SocioPayment> socioPaymentList) {
+        this.socioPaymentList = socioPaymentList;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class Administrator implements Serializable {
 
     @Override
     public String toString() {
-        return "gt.com.csj.agua.entity.Administrator[ administratorId=" + administratorId + " ]";
+        return "gt.com.csj.agua.test.Administrator[ administratorId=" + administratorId + " ]";
     }
     
 }

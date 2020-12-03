@@ -56,15 +56,15 @@ public class SocioPaymentJpaController implements Serializable {
             }
             em.persist(socioPayment);
             if (administratorId != null) {
-                administratorId.getSocioPaymentCollection().add(socioPayment);
+                administratorId.getSocioPaymentList().add(socioPayment);
                 administratorId = em.merge(administratorId);
             }
             if (paymentId != null) {
-                paymentId.getSocioPaymentCollection().add(socioPayment);
+                paymentId.getSocioPaymentList().add(socioPayment);
                 paymentId = em.merge(paymentId);
             }
             if (socioId != null) {
-                socioId.getSocioPaymentCollection().add(socioPayment);
+                socioId.getSocioPaymentList().add(socioPayment);
                 socioId = em.merge(socioId);
             }
             em.getTransaction().commit();
@@ -101,27 +101,27 @@ public class SocioPaymentJpaController implements Serializable {
             }
             socioPayment = em.merge(socioPayment);
             if (administratorIdOld != null && !administratorIdOld.equals(administratorIdNew)) {
-                administratorIdOld.getSocioPaymentCollection().remove(socioPayment);
+                administratorIdOld.getSocioPaymentList().remove(socioPayment);
                 administratorIdOld = em.merge(administratorIdOld);
             }
             if (administratorIdNew != null && !administratorIdNew.equals(administratorIdOld)) {
-                administratorIdNew.getSocioPaymentCollection().add(socioPayment);
+                administratorIdNew.getSocioPaymentList().add(socioPayment);
                 administratorIdNew = em.merge(administratorIdNew);
             }
             if (paymentIdOld != null && !paymentIdOld.equals(paymentIdNew)) {
-                paymentIdOld.getSocioPaymentCollection().remove(socioPayment);
+                paymentIdOld.getSocioPaymentList().remove(socioPayment);
                 paymentIdOld = em.merge(paymentIdOld);
             }
             if (paymentIdNew != null && !paymentIdNew.equals(paymentIdOld)) {
-                paymentIdNew.getSocioPaymentCollection().add(socioPayment);
+                paymentIdNew.getSocioPaymentList().add(socioPayment);
                 paymentIdNew = em.merge(paymentIdNew);
             }
             if (socioIdOld != null && !socioIdOld.equals(socioIdNew)) {
-                socioIdOld.getSocioPaymentCollection().remove(socioPayment);
+                socioIdOld.getSocioPaymentList().remove(socioPayment);
                 socioIdOld = em.merge(socioIdOld);
             }
             if (socioIdNew != null && !socioIdNew.equals(socioIdOld)) {
-                socioIdNew.getSocioPaymentCollection().add(socioPayment);
+                socioIdNew.getSocioPaymentList().add(socioPayment);
                 socioIdNew = em.merge(socioIdNew);
             }
             em.getTransaction().commit();
@@ -155,17 +155,17 @@ public class SocioPaymentJpaController implements Serializable {
             }
             Administrator administratorId = socioPayment.getAdministratorId();
             if (administratorId != null) {
-                administratorId.getSocioPaymentCollection().remove(socioPayment);
+                administratorId.getSocioPaymentList().remove(socioPayment);
                 administratorId = em.merge(administratorId);
             }
             Payment paymentId = socioPayment.getPaymentId();
             if (paymentId != null) {
-                paymentId.getSocioPaymentCollection().remove(socioPayment);
+                paymentId.getSocioPaymentList().remove(socioPayment);
                 paymentId = em.merge(paymentId);
             }
             Socio socioId = socioPayment.getSocioId();
             if (socioId != null) {
-                socioId.getSocioPaymentCollection().remove(socioPayment);
+                socioId.getSocioPaymentList().remove(socioPayment);
                 socioId = em.merge(socioId);
             }
             em.remove(socioPayment);

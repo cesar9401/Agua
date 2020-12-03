@@ -6,7 +6,7 @@
 package gt.com.csj.agua.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -82,16 +82,16 @@ public class Socio implements Serializable {
     @Column(name = "exonerated")
     private Short exonerated;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioId")
-    private Collection<Administrator> administratorCollection;
+    private List<Administrator> administratorList;
     @OneToMany(mappedBy = "socioSocioId")
-    private Collection<Socio> socioCollection;
+    private List<Socio> socioList;
     @JoinColumn(name = "socio_socio_id", referencedColumnName = "socio_id")
     @ManyToOne
     private Socio socioSocioId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioId")
-    private Collection<SocioEvent> socioEventCollection;
+    private List<SocioEvent> socioEventList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "socioId")
-    private Collection<SocioPayment> socioPaymentCollection;
+    private List<SocioPayment> socioPaymentList;
 
     public Socio() {
     }
@@ -181,21 +181,21 @@ public class Socio implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Administrator> getAdministratorCollection() {
-        return administratorCollection;
+    public List<Administrator> getAdministratorList() {
+        return administratorList;
     }
 
-    public void setAdministratorCollection(Collection<Administrator> administratorCollection) {
-        this.administratorCollection = administratorCollection;
+    public void setAdministratorList(List<Administrator> administratorList) {
+        this.administratorList = administratorList;
     }
 
     @XmlTransient
-    public Collection<Socio> getSocioCollection() {
-        return socioCollection;
+    public List<Socio> getSocioList() {
+        return socioList;
     }
 
-    public void setSocioCollection(Collection<Socio> socioCollection) {
-        this.socioCollection = socioCollection;
+    public void setSocioList(List<Socio> socioList) {
+        this.socioList = socioList;
     }
 
     public Socio getSocioSocioId() {
@@ -207,21 +207,21 @@ public class Socio implements Serializable {
     }
 
     @XmlTransient
-    public Collection<SocioEvent> getSocioEventCollection() {
-        return socioEventCollection;
+    public List<SocioEvent> getSocioEventList() {
+        return socioEventList;
     }
 
-    public void setSocioEventCollection(Collection<SocioEvent> socioEventCollection) {
-        this.socioEventCollection = socioEventCollection;
+    public void setSocioEventList(List<SocioEvent> socioEventList) {
+        this.socioEventList = socioEventList;
     }
 
     @XmlTransient
-    public Collection<SocioPayment> getSocioPaymentCollection() {
-        return socioPaymentCollection;
+    public List<SocioPayment> getSocioPaymentList() {
+        return socioPaymentList;
     }
 
-    public void setSocioPaymentCollection(Collection<SocioPayment> socioPaymentCollection) {
-        this.socioPaymentCollection = socioPaymentCollection;
+    public void setSocioPaymentList(List<SocioPayment> socioPaymentList) {
+        this.socioPaymentList = socioPaymentList;
     }
 
     @Override
@@ -246,7 +246,7 @@ public class Socio implements Serializable {
 
     @Override
     public String toString() {
-        return "gt.com.csj.agua.entity.Socio[ socioId=" + socioId + " ]";
+        return "gt.com.csj.agua.test.Socio[ socioId=" + socioId + " ]";
     }
     
 }

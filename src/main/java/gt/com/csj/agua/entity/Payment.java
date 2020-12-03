@@ -7,7 +7,7 @@ package gt.com.csj.agua.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -60,7 +60,7 @@ public class Payment implements Serializable {
     @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentId")
-    private Collection<SocioPayment> socioPaymentCollection;
+    private List<SocioPayment> socioPaymentList;
 
     public Payment() {
     }
@@ -108,12 +108,12 @@ public class Payment implements Serializable {
     }
 
     @XmlTransient
-    public Collection<SocioPayment> getSocioPaymentCollection() {
-        return socioPaymentCollection;
+    public List<SocioPayment> getSocioPaymentList() {
+        return socioPaymentList;
     }
 
-    public void setSocioPaymentCollection(Collection<SocioPayment> socioPaymentCollection) {
-        this.socioPaymentCollection = socioPaymentCollection;
+    public void setSocioPaymentList(List<SocioPayment> socioPaymentList) {
+        this.socioPaymentList = socioPaymentList;
     }
 
     @Override
@@ -138,7 +138,7 @@ public class Payment implements Serializable {
 
     @Override
     public String toString() {
-        return "gt.com.csj.agua.entity.Payment[ paymentId=" + paymentId + " ]";
+        return "gt.com.csj.agua.test.Payment[ paymentId=" + paymentId + " ]";
     }
     
 }

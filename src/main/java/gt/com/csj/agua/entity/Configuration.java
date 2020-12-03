@@ -109,7 +109,7 @@ public class Configuration implements Serializable {
 
     @Override
     public String toString() {
-        return "gt.com.csj.agua.entity.Configuration[ configurationId=" + configurationId + " ]";
+        return "gt.com.csj.agua.test.Configuration[ configurationId=" + configurationId + " ]";
     }
     
 }

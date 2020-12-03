@@ -22,6 +22,11 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.core</artifactId>
             <version>2.5.2</version>
         </dependency>
@@ -37,13 +42,13 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa.jpql</artifactId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
             <version>2.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
-            <artifactId>javax.persistence</artifactId>
-            <version>2.1.0</version>
+            <artifactId>org.eclipse.persistence.jpa.jpql</artifactId>
+            <version>2.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -56,12 +61,6 @@
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa -->
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>2.5.2</version>
         </dependency>
 
     </dependencies>

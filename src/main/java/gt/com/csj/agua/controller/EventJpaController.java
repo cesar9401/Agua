@@ -16,7 +16,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import gt.com.csj.agua.entity.SocioEvent;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -37,27 +36,27 @@ public class EventJpaController implements Serializable {
     }
 
     public void create(Event event) throws PreexistingEntityException, Exception {
-        if (event.getSocioEventCollection() == null) {
-            event.setSocioEventCollection(new ArrayList<SocioEvent>());
+        if (event.getSocioEventList() == null) {
+            event.setSocioEventList(new ArrayList<SocioEvent>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<SocioEvent> attachedSocioEventCollection = new ArrayList<SocioEvent>();
-            for (SocioEvent socioEventCollectionSocioEventToAttach : event.getSocioEventCollection()) {
-                socioEventCollectionSocioEventToAttach = em.getReference(socioEventCollectionSocioEventToAttach.getClass(), socioEventCollectionSocioEventToAttach.getSocioEventId());
-                attachedSocioEventCollection.add(socioEventCollectionSocioEventToAttach);
+            List<SocioEvent> attachedSocioEventList = new ArrayList<SocioEvent>();
+            for (SocioEvent socioEventListSocioEventToAttach : event.getSocioEventList()) {
+                socioEventListSocioEventToAttach = em.getReference(socioEventListSocioEventToAttach.getClass(), socioEventListSocioEventToAttach.getSocioEventId());
+                attachedSocioEventList.add(socioEventListSocioEventToAttach);
             }
-            event.setSocioEventCollection(attachedSocioEventCollection);
+            event.setSocioEventList(attachedSocioEventList);
             em.persist(event);
-            for (SocioEvent socioEventCollectionSocioEvent : event.getSocioEventCollection()) {
-                Event oldEventIdOfSocioEventCollectionSocioEvent = socioEventCollectionSocioEvent.getEventId();
-                socioEventCollectionSocioEvent.setEventId(event);
-                socioEventCollectionSocioEvent = em.merge(socioEventCollectionSocioEvent);
-                if (oldEventIdOfSocioEventCollectionSocioEvent != null) {
-                    oldEventIdOfSocioEventCollectionSocioEvent.getSocioEventCollection().remove(socioEventCollectionSocioEvent);
-                    oldEventIdOfSocioEventCollectionSocioEvent = em.merge(oldEventIdOfSocioEventCollectionSocioEvent);
+            for (SocioEvent socioEventListSocioEvent : event.getSocioEventList()) {
+                Event oldEventIdOfSocioEventListSocioEvent = socioEventListSocioEvent.getEventId();
+                socioEventListSocioEvent.setEventId(event);
+                socioEventListSocioEvent = em.merge(socioEventListSocioEvent);
+                if (oldEventIdOfSocioEventListSocioEvent != null) {
+                    oldEventIdOfSocioEventListSocioEvent.getSocioEventList().remove(socioEventListSocioEvent);
+                    oldEventIdOfSocioEventListSocioEvent = em.merge(oldEventIdOfSocioEventListSocioEvent);
                 }
             }
             em.getTransaction().commit();
@@ -79,36 +78,36 @@ public class EventJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Event persistentEvent = em.find(Event.class, event.getEventId());
-            Collection<SocioEvent> socioEventCollectionOld = persistentEvent.getSocioEventCollection();
-            Collection<SocioEvent> socioEventCollectionNew = event.getSocioEventCollection();
+            List<SocioEvent> socioEventListOld = persistentEvent.getSocioEventList();
+            List<SocioEvent> socioEventListNew = event.getSocioEventList();
             List<String> illegalOrphanMessages = null;
-            for (SocioEvent socioEventCollectionOldSocioEvent : socioEventCollectionOld) {
-                if (!socioEventCollectionNew.contains(socioEventCollectionOldSocioEvent)) {
+            for (SocioEvent socioEventListOldSocioEvent : socioEventListOld) {
+                if (!socioEventListNew.contains(socioEventListOldSocioEvent)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain SocioEvent " + socioEventCollectionOldSocioEvent + " since its eventId field is not nullable.");
+                    illegalOrphanMessages.add("You must retain SocioEvent " + socioEventListOldSocioEvent + " since its eventId field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<SocioEvent> attachedSocioEventCollectionNew = new ArrayList<SocioEvent>();
-            for (SocioEvent socioEventCollectionNewSocioEventToAttach : socioEventCollectionNew) {
-                socioEventCollectionNewSocioEventToAttach = em.getReference(socioEventCollectionNewSocioEventToAttach.getClass(), socioEventCollectionNewSocioEventToAttach.getSocioEventId());
-                attachedSocioEventCollectionNew.add(socioEventCollectionNewSocioEventToAttach);
+            List<SocioEvent> attachedSocioEventListNew = new ArrayList<SocioEvent>();
+            for (SocioEvent socioEventListNewSocioEventToAttach : socioEventListNew) {
+                socioEventListNewSocioEventToAttach = em.getReference(socioEventListNewSocioEventToAttach.getClass(), socioEventListNewSocioEventToAttach.getSocioEventId());
+                attachedSocioEventListNew.add(socioEventListNewSocioEventToAttach);
             }
-            socioEventCollectionNew = attachedSocioEventCollectionNew;
-            event.setSocioEventCollection(socioEventCollectionNew);
+            socioEventListNew = attachedSocioEventListNew;
+            event.setSocioEventList(socioEventListNew);
             event = em.merge(event);
-            for (SocioEvent socioEventCollectionNewSocioEvent : socioEventCollectionNew) {
-                if (!socioEventCollectionOld.contains(socioEventCollectionNewSocioEvent)) {
-                    Event oldEventIdOfSocioEventCollectionNewSocioEvent = socioEventCollectionNewSocioEvent.getEventId();
-                    socioEventCollectionNewSocioEvent.setEventId(event);
-                    socioEventCollectionNewSocioEvent = em.merge(socioEventCollectionNewSocioEvent);
-                    if (oldEventIdOfSocioEventCollectionNewSocioEvent != null && !oldEventIdOfSocioEventCollectionNewSocioEvent.equals(event)) {
-                        oldEventIdOfSocioEventCollectionNewSocioEvent.getSocioEventCollection().remove(socioEventCollectionNewSocioEvent);
-                        oldEventIdOfSocioEventCollectionNewSocioEvent = em.merge(oldEventIdOfSocioEventCollectionNewSocioEvent);
+            for (SocioEvent socioEventListNewSocioEvent : socioEventListNew) {
+                if (!socioEventListOld.contains(socioEventListNewSocioEvent)) {
+                    Event oldEventIdOfSocioEventListNewSocioEvent = socioEventListNewSocioEvent.getEventId();
+                    socioEventListNewSocioEvent.setEventId(event);
+                    socioEventListNewSocioEvent = em.merge(socioEventListNewSocioEvent);
+                    if (oldEventIdOfSocioEventListNewSocioEvent != null && !oldEventIdOfSocioEventListNewSocioEvent.equals(event)) {
+                        oldEventIdOfSocioEventListNewSocioEvent.getSocioEventList().remove(socioEventListNewSocioEvent);
+                        oldEventIdOfSocioEventListNewSocioEvent = em.merge(oldEventIdOfSocioEventListNewSocioEvent);
                     }
                 }
             }
@@ -142,12 +141,12 @@ public class EventJpaController implements Serializable {
                 throw new NonexistentEntityException("The event with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<SocioEvent> socioEventCollectionOrphanCheck = event.getSocioEventCollection();
-            for (SocioEvent socioEventCollectionOrphanCheckSocioEvent : socioEventCollectionOrphanCheck) {
+            List<SocioEvent> socioEventListOrphanCheck = event.getSocioEventList();
+            for (SocioEvent socioEventListOrphanCheckSocioEvent : socioEventListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Event (" + event + ") cannot be destroyed since the SocioEvent " + socioEventCollectionOrphanCheckSocioEvent + " in its socioEventCollection field has a non-nullable eventId field.");
+                illegalOrphanMessages.add("This Event (" + event + ") cannot be destroyed since the SocioEvent " + socioEventListOrphanCheckSocioEvent + " in its socioEventList field has a non-nullable eventId field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
