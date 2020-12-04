@@ -18,8 +18,8 @@ USE `agua` ;
 -- Table `agua`.`socio`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `agua`.`socio` (
-  `socio_id` INT NOT NULL,
-  `code` VARCHAR(45) NOT NULL,
+  `socio_id` INT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(45) NULL DEFAULT NULL,
   `name` VARCHAR(50) NOT NULL,
   `last_name` VARCHAR(50) NOT NULL,
   `dpi` VARCHAR(13) NULL,
@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `agua`.`socio` (
   `address` VARCHAR(100) NULL,
   `type` ENUM('SOCIO', 'MANCOMUNADO') NOT NULL DEFAULT 'SOCIO',
   `exonerated` TINYINT NULL DEFAULT 0,
+  `status` TINYINT NULL DEFAULT 1,
   `socio_socio_id` INT NULL,
   PRIMARY KEY (`socio_id`),
   INDEX `fk_socio_socio_idx` (`socio_socio_id` ASC),
@@ -45,6 +46,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `agua`.`administrator` (
   `administrator_id` INT NOT NULL AUTO_INCREMENT,
   `password` VARCHAR(50) NOT NULL,
+  `status` TINYINT NULL DEFAULT 1,
   `socio_id` INT NOT NULL,
   INDEX `fk_administrator_socio1_idx` (`socio_id` ASC),
   PRIMARY KEY (`administrator_id`),
@@ -72,7 +74,7 @@ ENGINE = InnoDB;
 -- Table `agua`.`event`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `agua`.`event` (
-  `event_id` INT NOT NULL,
+  `event_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `event_date` DATE NOT NULL,
   `event_time` TIME NOT NULL,
@@ -94,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `agua`.`socio_payment` (
   `amount` DECIMAL(10,2) NOT NULL,
   `payment_date` DATE NULL COMMENT 'Hace referencia a la fecha en la que se hace el pago',
   `administrator_id` INT NOT NULL,
+  `code` INT NOT NULL,
   PRIMARY KEY (`socio_payment_id`),
   INDEX `fk_socio_payment_socio1_idx` (`socio_id` ASC),
   INDEX `fk_socio_payment_payment1_idx` (`payment_id` ASC),
@@ -125,6 +128,8 @@ CREATE TABLE IF NOT EXISTS `agua`.`socio_event` (
   `event_id` INT NOT NULL,
   `administrator_id` INT NOT NULL,
   `payment_date` DATE NULL COMMENT 'Hace referencia a la fecha en la que se pago la multa por no asister, NULL = no ha pagado',
+  `description` TEXT NULL,
+  `code` INT NOT NULL,
   PRIMARY KEY (`socio_event_id`),
   INDEX `fk_socio_event_socio1_idx` (`socio_id` ASC),
   INDEX `fk_socio_event_event1_idx` (`event_id` ASC),
@@ -155,6 +160,34 @@ CREATE TABLE IF NOT EXISTS `agua`.`configuration` (
   `item` VARCHAR(45) NOT NULL,
   `value` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`configuration_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `agua`.`fine`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `agua`.`fine` (
+  `fine_id` INT NOT NULL,
+  `socio_id` INT NOT NULL,
+  `amount` DECIMAL(10,2) NOT NULL,
+  `fine_date` DATE NOT NULL COMMENT 'Hace referencia a la fecha en que se establecio la multa',
+  `fine_date_payment` DATE NULL DEFAULT NULL COMMENT 'Hace referencia a la fecha en que se paga la multa',
+  `description` TEXT NOT NULL,
+  `administrator_id` INT NOT NULL,
+  `code` INT NOT NULL,
+  PRIMARY KEY (`fine_id`),
+  INDEX `fk_fine_socio1_idx` (`socio_id` ASC),
+  INDEX `fk_fine_administrator1_idx` (`administrator_id` ASC),
+  CONSTRAINT `fk_fine_socio1`
+    FOREIGN KEY (`socio_id`)
+    REFERENCES `agua`.`socio` (`socio_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_fine_administrator1`
+    FOREIGN KEY (`administrator_id`)
+    REFERENCES `agua`.`administrator` (`administrator_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
