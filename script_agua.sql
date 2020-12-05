@@ -39,6 +39,18 @@ CREATE TABLE IF NOT EXISTS `agua`.`socio` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- datos socio
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`) VALUES ('1', 'S-1', 'Juan Carlos', 'Plata', '3456781320901', '77651234', 'Ciudad de Quetzaltenango', 'SOCIO', '0', '1');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`) VALUES ('2', 'S-2', 'Carlos Humberto', 'Ruiz', '3456787640901', '77651235', 'Zona 7, Ciudad de Quetzaltenango', 'SOCIO', '0', '1');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`, `socio_socio_id`) VALUES ('3', 'M-1', 'Juan Carlos', 'Plata Jr', '3356781320901', '77651234', 'Ciudad de Quetzaltenango', 'MANCOMUNADO', '0', '1', '1');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`) VALUES ('4', 'S-3', 'Jose Jose', 'Perez', '3456781320501', '77651290', '12 Av 3ra Calle Zona 3, Quetzaltenango', 'SOCIO', '0', '1');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`) VALUES ('5', 'S-4', 'George', 'Michael', '3456781326501', '77650987', '12 Av 3ra Calle Zona 4, Quetzaltenango', 'SOCIO', '1', '1');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`, `socio_socio_id`) VALUES ('6', 'M-2', 'Ricardo', 'Andrade', '3456781320902', '53519801', 'Zona 7, Ciudad de Quetzaltenango', 'MANCOMUNADO', '0', '1', '4');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`) VALUES ('7', 'S-5', 'Dua Fernanda', 'Lipa', '2456787640901', '56789000', '3ra Calle 5-19 Zona 2, Quetzaltenango', 'SOCIO', '0', '1');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`) VALUES ('8', 'S-6', 'Aaron', 'Smith', '2556787640901', '77657610', '2da Calle 5-19 Zona 2, Quetzaltenango', 'SOCIO', '0', '1');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`) VALUES ('9', 'S-7', 'Guadalupe', 'Esparza', '2556787641201', '77650987', '1ra Calle 2-19 Zona 2, Quetzaltenango', 'SOCIO', '0', '0');
+INSERT INTO `agua`.`socio` (`socio_id`, `code`, `name`, `last_name`, `dpi`, `phone`, `address`, `type`, `exonerated`, `status`, `socio_socio_id`) VALUES ('10', 'M-3', 'Luisa', 'Smith', '2612787641201', '54546789', '9na Calle 2-19 Zona 2, Quetzaltenango', 'MANCOMUNADO', '0', '1', '8');
+-- fin datos socio
 
 -- -----------------------------------------------------
 -- Table `agua`.`administrator`
@@ -56,6 +68,13 @@ CREATE TABLE IF NOT EXISTS `agua`.`administrator` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+-- datos administrator
+INSERT INTO `agua`.`administrator` (`administrator_id`, `password`, `status`, `socio_id`) VALUES ('1', '123321', '1', '1');
+INSERT INTO `agua`.`administrator` (`administrator_id`, `password`, `status`, `socio_id`) VALUES ('2', 'abc', '1', '2');
+INSERT INTO `agua`.`administrator` (`administrator_id`, `password`, `status`, `socio_id`) VALUES ('3', 'qwerty', '0', '5');
+INSERT INTO `agua`.`administrator` (`administrator_id`, `password`, `status`, `socio_id`) VALUES ('4', 'xyz-123', '1', '10');
+-- fin datos administrator
 
 
 -- -----------------------------------------------------
