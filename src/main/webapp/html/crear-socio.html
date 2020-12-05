@@ -1,0 +1,103 @@
+
+<br>
+<div class="container h-100">
+    <div class="row justify-content-center h-100">
+        <div class="col-sm-8 align-self-center text-center">
+            <div class="card shadow">
+                <div class="card-body">           
+
+                    <form class="needs-validation border border-light p-5" action="ClienteController?accion=crear" method="post" enctype="multipart/form-data">
+
+
+                        <!--button type="button" class="btn btn-lg btn-primary" data-toggle="popover" title="Popover title" data-content="Para crear un socio MANCOMUNADO DEBERA INGRESAR EL CODIGO   del Socio a quien esta afiliado,  ">
+                            Crear Socio
+                        </button-->
+
+                        <h5 class="card-header btn-outline-black white-text text-center py-4">
+                            <strong>Registrar Socio </strong>
+                        </h5>
+
+
+                        <div class="form-row">
+
+                            <div class="col-md-4 mb-3 md-form">
+                                <label for="validationCustom022">Dpi</label>
+                                <input type="number" min="1" max="9999999999999" class="form-control"    name="dpi"  >
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3 md-form">
+                                <label for="validationCustom012">Nombre</label>
+                                <input type="text" class="form-control" id="validationCustom012"
+                                       name="nombre"   onkeypress="inLength('validationCustom012')"
+                                       required title="Campo Obligatorio, para crear un socio">
+                                <div class="valid-feedback">
+                                    Excelente    
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4 mb-3 md-form" id="falseY"> 
+                                <label for="validationCustom022">Apellido</label>
+                                <input type="text" class="form-control" id="validationCustom022"
+                                       name="nombre"   onkeypress="inLength('validationCustom022')"
+                                       required>
+                                <div class="valid-feedback">
+                                    Excelente    
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                       
+                        <div class="form-row " style="justify-content: center;">
+
+                            <div class="col-md-4 mb-3 md-form">
+                                <label for="telefono">Numero De Telefono</label>
+                                <input type="number" maxlength="8"  max="99999999" class="form-control"     id="telefono" name="telefono"  >
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="col-md-4 mb-3 md-form" id="falseY"> 
+                                <label for="validationCustom022">Sector - Direccion</label>
+                                <input type="text" class="form-control" id="sector"
+                                       name="sector"   onkeypress="inLength('sector')"
+                                       required>
+                                <div class="valid-feedback">
+                                    Excelente    
+                                </div>
+                            </div>
+
+                           
+                        </div>
+
+                        <div class="form-row" style="justify-content: center;">
+                            <div class="col-md-4 mb-3 md-form">
+                                <label for="codigo">Codigo</label>
+                                <input type="text" class="form-control" id="codigo"
+                                       name="codigo"   onkeypress="inLength('codigo')"
+                                       required title="Campo Obligatorio, para crear un socio">
+                                <div class="valid-feedback">
+                                    Excelente    
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <button class="btn btn-info btn-block my-4" type="submit">Registrar Socio</button>
+
+
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
